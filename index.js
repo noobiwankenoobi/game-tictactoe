@@ -6,19 +6,20 @@ const gameState = {
 }
 
 const addToCell = (cellID, letter) => {
-    $('#' + cellID).html(letter);
+    $('#' + cellID).html(letter); 
 } 
 
 const playerMove = () => {
-  let cellID = event.target.id
-  if (gameState.currentTurn === 'playerOne') {
-    addToCell(cellID, gameState.playerOneSymbol)
-    gameState.currentTurn = 'playerTwo'
-  } else if (gameState.currentTurn === 'playerTwo') {
-    addToCell(cellID, gameState.playerTwoSymbol)
-    gameState.currentTurn = 'playerOne'
-  } else {
-    console.error('player state unknown')
+  if ($('#' + event.target.id).html() === '') {
+    if (gameState.currentTurn === 'playerOne') {
+      addToCell(event.target.id, gameState.playerOneSymbol)
+      gameState.currentTurn = 'playerTwo'
+    } else if (gameState.currentTurn === 'playerTwo') {
+      addToCell(event.target.id, gameState.playerTwoSymbol)
+      gameState.currentTurn = 'playerOne'
+    } else {
+      console.error('player state unknown')
+    }
   }
 }
 
