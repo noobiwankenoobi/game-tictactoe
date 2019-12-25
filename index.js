@@ -2,7 +2,14 @@
 const gameState = {
   currentTurn: 'playerOne',
   playerOneSymbol: 'X',
-  playerTwoSymbol: 'O'
+  playerTwoSymbol: 'O',
+  currentBoard: [,,,,,,,,],
+  activeGame: true
+
+}
+
+const checkForVictory = () => {
+  console.log('checking for Victory')
 }
 
 const addToCell = (cellID, letter) => {
@@ -10,7 +17,7 @@ const addToCell = (cellID, letter) => {
 } 
 
 const playerMove = () => {
-  if ($('#' + event.target.id).html() === '') {
+  if (gameState.activeGame && $('#' + event.target.id).html() === '') {
     if (gameState.currentTurn === 'playerOne') {
       addToCell(event.target.id, gameState.playerOneSymbol)
       gameState.currentTurn = 'playerTwo'
@@ -20,6 +27,7 @@ const playerMove = () => {
     } else {
       console.error('player state unknown')
     }
+    checkForVictory()
   }
 }
 
