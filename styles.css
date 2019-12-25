@@ -2,17 +2,19 @@
     margin: auto;
     height: 700px;
     width: 700px;
-    justify-content: center;
     padding: 120px 0px 40px 0px;
 }
 
 .cell {
-    /* position: relative; */
     width: 200px;
     height: 200px;
     border: 2px solid black;
     margin: 5px;
     display: inline-block;
+    align-content: center;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: top;
 }
 
 .title {
