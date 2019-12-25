@@ -1,38 +1,31 @@
 
 const gameState = {
-  currentTurn: 'playerOne'
+  currentTurn: 'playerOne',
+  playerOneSymbol: 'X',
+  playerTwoSymbol: 'O'
 }
 
-const addX = () => {
-    $('#' + event.target.id).html('X')
-}
-
-const addO = () => {
-  $('#' + event.target.id).html('O')
-}
+const addToCell = (cellID, letter) => {
+    $('#' + cellID).html(letter);
+} 
 
 const playerMove = () => {
+  let cellID = event.target.id
   if (gameState.currentTurn === 'playerOne') {
-    addX()
+    addToCell(cellID, gameState.playerOneSymbol)
     gameState.currentTurn = 'playerTwo'
   } else if (gameState.currentTurn === 'playerTwo') {
-    addO()
+    addToCell(cellID, gameState.playerTwoSymbol)
     gameState.currentTurn = 'playerOne'
   } else {
     console.error('player state unknown')
   }
 }
 
-// const addToCell = (cellID, letter) => {
-//     $(cellID).html(letter);
-// } 
-
 const addHandlers = () => {
   $('.cell').on('click', playerMove)
-  
 };
 
-// ON PAGE LOAD
 // ON PAGE LOAD
 
 $(() => {
