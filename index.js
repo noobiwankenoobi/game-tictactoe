@@ -3,7 +3,7 @@ const gameState = {
   currentTurn: 'playerOne',
   playerOneSymbol: 'X',
   playerTwoSymbol: 'O',
-  currentBoard: [,,,,,,,,],
+  currentBoardArray: [,,,,,,,,],
   activeGame: true
 
 }
@@ -25,6 +25,16 @@ const checkForVictory = () => {
 
 const addToCell = (cellID, letter) => {
     $('#' + cellID).html(letter); 
+    console.log(cellID)
+    let arrayIndex = ""
+    if (cellID === "cell-one") {
+      arrayIndex = 0;
+      gameState.currentBoardArray[arrayIndex] = letter;
+      console.log(arrayIndex);
+      console.log(gameState.currentBoardArray)
+    }
+    
+
 } 
 
 const playerMove = () => {
