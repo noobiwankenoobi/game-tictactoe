@@ -3,20 +3,20 @@ const gameState = {
   currentTurn: 'playerOne',
   playerOneSymbol: 'X',
   playerTwoSymbol: 'O',
-  currentBoardArray: [,,,,,,,,],
+  currentBoardArray: [,,,,,,,,,],
   activeGame: true
 
 }
 
 const winConditions = [
-  [1,2,3],
-  [1,5,9],
-  [1,4,7,],
-  [4,5,6],
-  [7,8,9],
+  [0,1,2],
+  [0,4,8],
+  [0,3,6,],
+  [3,4,5],
+  [6,7,8],
+  [1,4,7],
   [2,5,8],
-  [3,6,9],
-  [3,5,7]
+  [2,4,6]
 ];
 
 const checkForVictory = () => {
@@ -26,13 +26,31 @@ const checkForVictory = () => {
 const addToCell = (cellID, letter) => {
     $('#' + cellID).html(letter); 
     console.log(cellID)
+    // putting symbols into correct position on currentBoardArray
     let arrayIndex = ""
     if (cellID === "cell-one") {
       arrayIndex = 0;
-      gameState.currentBoardArray[arrayIndex] = letter;
-      console.log(arrayIndex);
-      console.log(gameState.currentBoardArray)
     }
+    else if (cellID === "cell-two") {
+      arrayIndex = 1;
+    } else if (cellID === "cell-three") {
+      arrayIndex = 2;
+    } else if (cellID === "cell-four") {
+      arrayIndex = 3;
+    } else if (cellID === "cell-five") {
+      arrayIndex = 4;
+    } else if (cellID === "cell-six") {
+      arrayIndex = 5;
+    } else if (cellID === "cell-seven") {
+      arrayIndex = 6;
+    } else if (cellID === "cell-eight") {
+      arrayIndex = 7;
+    } else if (cellID === "cell-nine") {
+      arrayIndex = 8;
+    }
+    gameState.currentBoardArray[arrayIndex] = letter;
+    console.log("arrayIndex= ", arrayIndex);
+    console.log("BOARD= ", gameState.currentBoardArray)
     
 
 } 
