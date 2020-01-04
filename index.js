@@ -26,6 +26,7 @@ const checkForVictory = () => {
 
   let testArray = winConditions[0]
   let checkIfXWins = 
+
   console.log("first win condition=", winConditions[0])
 
   for (let i = 0; i < testArray.length; i++) {
@@ -38,13 +39,11 @@ const checkForVictory = () => {
     if (gameState.currentBoardArray[testArray[i]] !== "x") {
       match = false;
     }
-    
   }
-  
 }
-if (match === true) {
-  console.log ("x wins")
-}
+  if (match === true) {
+    console.log ("x wins")
+  }
 }
 
 
