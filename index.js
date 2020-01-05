@@ -138,30 +138,6 @@ const winConditions = [
 //   console.log('X WINS')
 // }
 
-
-const checkWins = (arr1) => {
-  // console.log("checkXWins is RUNNING!");
-  // console.log("arr1=", arr1);
-  if (arr1[0] === 'X' && arr1[1] === 'X' && arr1[2] === 'X') {
-    console.log("X WINS!")
-    gameState.playerOneWinsThisSession++;
-    gameState.gameWinner = "Player One";
-    gameState.gameOver = true
-    console.log(gameState)
-  } else if (arr1[0] === 'O' && arr1[1] === 'O' && arr1[2] === 'O') {
-    console.log("O WINS!")
-    gameState.playerTwoWinsThisSession++;
-    gameState.gameWinner = "Player Two";
-    gameState.gameOver = true
-    console.log(gameState)
-  } else {
-    console.log("KEEP PLAYING!")
-  }
-
- 
-}
-
-  
 // const checkContainsX = (value) => {
 //   return value === "X"; 
 // }
@@ -191,27 +167,66 @@ const checkWins = (arr1) => {
   // }
 
 
+  const checkWins = (arr1) => {
+    // console.log("checkXWins is RUNNING!");
+    // console.log("arr1=", arr1);
+    if (arr1[0] === 'X' && arr1[1] === 'X' && arr1[2] === 'X') {
+      console.log("X WINS!")
+      gameState.playerOneWinsThisSession++;
+      gameState.gameWinner = "Player One";
+      gameState.gameOver = true
+      console.log(gameState)
+    } else if (arr1[0] === 'O' && arr1[1] === 'O' && arr1[2] === 'O') {
+      console.log("O WINS!")
+      gameState.playerTwoWinsThisSession++;
+      gameState.gameWinner = "Player Two";
+      gameState.gameOver = true
+      console.log(gameState)
+    } else {
+      console.log("KEEP PLAYING!")
+    }
+  }
 
+
+// THIS ONE WORKS FOR JUST THE FIRST ARRAY IN WIN CONDITIONS
 
 const checkForVictory = () => {
+  
   let testArray = [,,,];
-  for (let i = 0; i < winConditions[0].length; i++) {
-    let indexes = winConditions[0][i];
-    // console.log("indexes=", indexes);
-    let boardValues = gameState.currentBoardArray[indexes]
-    // console.log("boardValues=", boardValues);
-    testArray[indexes] = boardValues;
-    // console.log("testArray=", testArray);
 
+  for (let i = 0; i < 3; i++) {
+
+    let indexes = winConditions[0][i];
+
+    let boardValues = gameState.currentBoardArray[indexes]
+    
+    testArray[i] = boardValues;
+
+    // console.log("testArray=", testArray);
+    // console.log("boardValues=", boardValues);
     // const xWinsArray = ["X","X","X"]
     // console.log("xWinsArray=", xWinsArray)
     // console.log("testArray length=", testArray.length)
+    // console.log("indexes=", indexes)
     // checkXWins(testArray, xWinsArray)
-
+    
     checkWins(testArray)
+      
+    }
+  
+  }
 
 
-    // if (testArray[i] !== xWinsArray[i]) {
+  // TRYING TO NEST THE LOOPS 
+
+  // for (let i = 0; i < winConditions.length; i++) {
+  // }
+
+
+
+
+
+ // if (testArray[i] !== xWinsArray[i]) {
     //   console.log("KEEP PLAYING")
     // } else if (testArray[i] === xWinsArray[i]) {
     //   console.log("X WINS")
@@ -228,10 +243,6 @@ const checkForVictory = () => {
   //   }
   // }
   // checkXWins()
-      
-    }
-   
-  }
 
 
 // POTENTIAL CHECK X WIN FUNCTION
@@ -245,8 +256,8 @@ const checkForVictory = () => {
 //     console.log("PLAYER X WINS")
 //   }
 // }
-
 //   }
+
 
 
 // ADDS SYMBOL TO GAMEBOARD IN DOM // ADDS SYMBOL TO GAMEBOARD IN DOM
