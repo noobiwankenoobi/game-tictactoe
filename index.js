@@ -10,6 +10,8 @@ const gameState = {
   activeGame: true,
   gameOver: false,
   gameWinner: "",
+  playerOneWinsThisSession: 0,
+  playerTwoWinsThisSession: 0,
 }
 
 const winConditions = [
@@ -138,12 +140,20 @@ const winConditions = [
 
 
 const checkWins = (arr1) => {
-  console.log("checkXWins is RUNNING!")
-  console.log("arr1=", arr1);
+  // console.log("checkXWins is RUNNING!");
+  // console.log("arr1=", arr1);
   if (arr1[0] === 'X' && arr1[1] === 'X' && arr1[2] === 'X') {
     console.log("X WINS!")
+    gameState.playerOneWinsThisSession++;
+    gameState.gameWinner = "Player One";
+    gameState.gameOver = true
+    console.log(gameState)
   } else if (arr1[0] === 'O' && arr1[1] === 'O' && arr1[2] === 'O') {
     console.log("O WINS!")
+    gameState.playerTwoWinsThisSession++;
+    gameState.gameWinner = "Player Two";
+    gameState.gameOver = true
+    console.log(gameState)
   } else {
     console.log("KEEP PLAYING!")
   }
