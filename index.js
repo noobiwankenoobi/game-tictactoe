@@ -55,24 +55,59 @@ const winConditions = [
 //     }
 //   }
 
+const resetBoard = () => {
+  console.log("RESET BOARD IS RUNNING!")
+  $('.cell').html("");
+  gameState.gameOver = false;
+  gameState.activeGame = true;
+  gameState.currentTurn = "playerOne"
 
-const checkWins = (testArray) => {
+  for (let i = 0; i < gameState.currentBoardArray.length; i++) {
+    gameState.currentBoardArray[i] = "";
+  }
+
+  console.log("currentBoardArray=", gameState.currentBoardArray)
+}
+
+const updateWinsTable = (currentGameWinner) => {
+  if (currentGameWinner === "X") {
+    $('#player-one-wins-counter').html(gameState.playerOneWinsThisSession)
+  } else if (currentGameWinner === "O") {
+    $('#player-two-wins-counter').html(gameState.playerTwoWinsThisSession)
+  }
+}
+
+
+const checkWhoWins = (testArray) => {
   // console.log("checkXWins is RUNNING!");
   // console.log("arr1=", arr1);
+  let currentGameWinner ="";
+
   if (testArray[0] === 'X' && testArray[1] === 'X' && testArray[2] === 'X') {
-    console.log("X WINS!")
     gameState.playerOneWinsThisSession++;
     gameState.gameWinner = "Player One";
     gameState.gameOver = true;
-    gameState.activeGame = false
+    gameState.activeGame = false;
+    
+    currentGameWinner = "X";
+
+    console.log("X WINS!")
     console.log(gameState)
+
+    updateWinsTable(currentGameWinner)
+
   } else if (testArray[0] === 'O' && testArray[1] === 'O' && testArray[2] === 'O') {
-    console.log("O WINS!")
     gameState.playerTwoWinsThisSession++;
     gameState.gameWinner = "Player Two";
     gameState.gameOver = true;
-    gameState.activeGame = false
+    gameState.activeGame = false;
+    
+    currentGameWinner = "O";
+
+    console.log("O WINS!")
     console.log(gameState)
+
+    updateWinsTable(currentGameWinner)
   } else {
     // console.log("KEEP PLAYING!")
   }
@@ -89,27 +124,31 @@ const checkWins = (testArray) => {
     for (let i = 0; i < winConditions.length; i++) {
       
       if (gameState.activeGame === true) {
+
       for (let j = 0; j < 3; j++) {
+
+        // THIS IF STATEMENT NEEDS FIXING!!
+        if (testArray[j] !== null && testArray[j] !== "") {
     
         let indexes = winConditions[i][j];
     
         let boardValues = gameState.currentBoardArray[indexes]
         
         testArray[j] = boardValues;
-    
-        // console logs -------------
         console.log("testArray=", testArray);
+        
+        // runs checkWins and sends the iteration of testArray every loop to be checked by checkWins
+        checkWhoWins(testArray)
+          
+        // console logs--------
         // console.log("boardValues=", boardValues);
         // const xWinsArray = ["X","X","X"]
         // console.log("xWinsArray=", xWinsArray)
         // console.log("testArray length=", testArray.length)
         // console.log("indexes=", indexes)
         // checkXWins(testArray, xWinsArray)
-        
-        // runs checkWins and sends the iteration of testArray every loop to be checked by checkWins
-        checkWins(testArray)
-          
         }
+      }
       }
     }
   } 
@@ -181,6 +220,7 @@ const playerMove = () => {
 
 const addHandlers = () => {
   $('.cell').on('click', playerMove)
+  $('#board-reset-button').on('click', resetBoard)
 };
 
 // ON PAGE LOAD // ON PAGE LOAD
