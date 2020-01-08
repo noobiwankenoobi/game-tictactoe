@@ -32,6 +32,19 @@ const winConditions = [
 const newGame = () => {
   // this will clean up a bunch of the lower functions that are resetting things themselves
   // reset the board, reset the gameState, reset everything on screen that needs resetting
+  console.log("RESET BOARD IS RUNNING!")
+  $('.cell').html("");
+  gameState.gameOver = false;
+  gameState.activeGame = true;
+  gameState.currentTurn = "playerOne"
+  updatePlayerTurnOnScreen()
+  $('.announce-winner-div').html("");
+
+  for (let i = 0; i < gameState.currentBoardArray.length; i++) {
+    gameState.currentBoardArray[i] = "";
+  }
+
+  console.log("currentBoardArray=", gameState.currentBoardArray)
 }
 
 // FUNCTION THAT RUNS WHEN WINNER IS DETERMINED AND NEEDS ANNOUNCING
@@ -93,6 +106,9 @@ const updateWinsTable = (currentGameWinner) => {
   }
 }
 
+// CHECK WHO WINS AFTER VICTORY IS DETERMINED
+// CHECK WHO WINS AFTER VICTORY IS DETERMINED
+
 
 const checkWhoWins = (winTestArray) => {
   // console.log("checkXWins is RUNNING!");
@@ -132,6 +148,8 @@ const checkWhoWins = (winTestArray) => {
 }
  
 // FIRST CHECK FOR A VICTORY
+// FIRST CHECK FOR A VICTORY
+
   const checkForVictory = () => {
   
     for (let i = 0; i < winConditions.length; i++) {
@@ -141,24 +159,24 @@ const checkWhoWins = (winTestArray) => {
       if (gameState.activeGame === true) {
       console.log("NEXT ITERATION-----------")
 
-      for (let j = 0; j < 3; j++) {
-        
-        // THIS IF STATEMENT (MAYBE) NEEDS FIXING!!
-        if (winTestArray[0] !== "" && winTestArray[1] !== "" && winTestArray[2] !== "") {
-    
-        let indexes = winConditions[i][j];
-        let boardValues = gameState.currentBoardArray[indexes]
-        
-        // testArray IS BEING ASSIGNED VALUES IN CERTAIN INDEXES BY THE CURRENT BOARD ARRAY
-        winTestArray[j] = boardValues;
-        console.log("indexes=", indexes)
-        console.log("winTestArray=", winTestArray);
-        
-        // runs checkWins and sends the iteration of testArray every loop to be checked by checkWhoWins
-        checkWhoWins(winTestArray)
+        for (let j = 0; j < 3; j++) {
           
+          // THIS IF STATEMENT (MAYBE) NEEDS FIXING!!
+          if (winTestArray[0] !== "" && winTestArray[1] !== "" && winTestArray[2] !== "") {
+      
+            let indexes = winConditions[i][j];
+            let boardValues = gameState.currentBoardArray[indexes]
+            
+            // testArray IS BEING ASSIGNED VALUES IN CERTAIN INDEXES BY THE CURRENT BOARD ARRAY
+            winTestArray[j] = boardValues;
+            console.log("indexes=", indexes)
+            console.log("winTestArray=", winTestArray);
+            
+            // runs checkWins and sends the iteration of testArray every loop to be checked by checkWhoWins
+            checkWhoWins(winTestArray)
+            
+          }
         }
-      }
       }
     }
   } 
@@ -170,12 +188,13 @@ const checkWhoWins = (winTestArray) => {
 const addToCell = (cellID, letter) => {
   // puts the correct symbol onto the playing board
     $('#' + cellID).html(letter); 
+
     // putting symbols into correct position on currentBoardArray
     let arrayIndex = ""
+
     if (cellID === "cell-one") {
       arrayIndex = 0;
-    }
-    else if (cellID === "cell-two") {
+    } else if (cellID === "cell-two") {
       arrayIndex = 1;
     } else if (cellID === "cell-three") {
       arrayIndex = 2;
@@ -243,7 +262,6 @@ const addHandlers = () => {
 // ON PAGE LOAD // ON PAGE LOAD
 // ON PAGE LOAD // ON PAGE LOAD
 // ON PAGE LOAD // ON PAGE LOAD
-
 
 $(() => {
   addHandlers()
