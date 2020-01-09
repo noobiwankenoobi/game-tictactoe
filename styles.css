@@ -54,7 +54,12 @@
 }
 
 .session-wins-table td {
-    border-top: 1px solid black;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.session-wins-table th {
+    border: 1px solid black;
     padding: 15px;
 }
 
