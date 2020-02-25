@@ -1,35 +1,35 @@
 const startingGameState = {
-  currentTurn: 'playerOne',
-  playerOneSymbol: 'X',
-  playerTwoSymbol: 'O',
-  currentBoardArray: [,,,,,,,,,],
-  activeGame: true,
-  gameOver: false,
-  gameWinner: "",
-  playerOneWinsThisSession: 0,
-  playerTwoWinsThisSession: 0,
+  currentTurn:                'playerOne',
+  playerOneSymbol:            'X',
+  playerTwoSymbol:            'O',
+  currentBoardArray:          [,,,,,,,,,],
+  activeGame:                 true,
+  gameOver:                   false,
+  gameWinner:                 "",
+  playerOneWinsThisSession:   0,
+  playerTwoWinsThisSession:   0,
 }
 
 const gameState = {
-  currentTurn: 'playerOne',
-  playerOneSymbol: 'X',
-  playerTwoSymbol: 'O',
-  currentBoardArray: [,,,,,,,,,],
-  activeGame: true,
-  gameOver: false,
-  gameWinner: "",
-  playerOneWinsThisSession: 0,
-  playerTwoWinsThisSession: 0,
+  currentTurn:                startingGameState.currentTurn,
+  playerOneSymbol:            startingGameState.playerOneSymbol,
+  playerTwoSymbol:            startingGameState.playerTwoSymbol,
+  currentBoardArray:          startingGameState.currentBoardArray,
+  activeGame:                 startingGameState.activeGame,
+  gameOver:                   startingGameState.gameOver,
+  gameWinner:                 startingGameState.gameWinner,
+  playerOneWinsThisSession:   startingGameState.playerOneWinsThisSession,
+  playerTwoWinsThisSession:   startingGameState.playerTwoWinsThisSession,
 }
 
 const winConditions = [
   [0,1,2],
-  [0,4,8],
-  [0,3,6],
   [3,4,5],
   [6,7,8],
+  [0,3,6],
   [1,4,7],
   [2,5,8],
+  [0,4,8],
   [2,4,6]
 ];
 
@@ -48,7 +48,6 @@ const newGame = () => {
 
 const announceWinner = (currentGameWinner) => {
   if (currentGameWinner === "X") {
-    console.log("X conditions running")
     $('.announce-winner-div').html("Player One Wins!");
   } else if (currentGameWinner === "O") {
     $('.announce-winner-div').html("Player Two Wins!");
@@ -66,7 +65,6 @@ const updatePlayerTurnOnScreen = () => {
 }
 
 const resetBoard = () => {
-  console.log("RESET BOARD IS RUNNING!")
   $('.cell').html("");
   gameState.gameOver = false;
   gameState.activeGame = true;
