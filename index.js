@@ -1,3 +1,4 @@
+
 const startingGameState = {
   currentTurn: 'playerOne',
   playerOneSymbol: 'X',
