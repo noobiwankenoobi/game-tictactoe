@@ -1,3 +1,8 @@
+const sessionState = {
+  playerOneWinsThisSession:   0,
+  playerTwoWinsThisSession:   0,
+};
+
 const startingGameState = {
   currentTurn:                'playerOne',
   playerOneSymbol:            'X',
@@ -6,21 +11,9 @@ const startingGameState = {
   activeGame:                 true,
   gameOver:                   false,
   gameWinner:                 "",
-  playerOneWinsThisSession:   0,
-  playerTwoWinsThisSession:   0,
-}
+};
 
-const gameState = {
-  currentTurn:                startingGameState.currentTurn,
-  playerOneSymbol:            startingGameState.playerOneSymbol,
-  playerTwoSymbol:            startingGameState.playerTwoSymbol,
-  currentBoardArray:          startingGameState.currentBoardArray,
-  activeGame:                 startingGameState.activeGame,
-  gameOver:                   startingGameState.gameOver,
-  gameWinner:                 startingGameState.gameWinner,
-  playerOneWinsThisSession:   startingGameState.playerOneWinsThisSession,
-  playerTwoWinsThisSession:   startingGameState.playerTwoWinsThisSession,
-}
+const gameState = startingGameState;
 
 const winConditions = [
   [0,1,2],
@@ -35,23 +28,14 @@ const winConditions = [
 
 const newGame = () => {
   $('.cell').html("");
-  gameState.gameOver = false;
-  gameState.activeGame = true;
-  gameState.currentTurn = "playerOne"
-  updatePlayerTurnOnScreen();
   $('.announce-winner-div').html("");
-
-  for (let i = 0; i < gameState.currentBoardArray.length; i++) {
-    gameState.currentBoardArray[i] = "";
-  }
-}
+  updatePlayerTurnOnScreen();
+  gameState = startingGameState;
+};
 
 const announceWinner = (currentGameWinner) => {
-  if (currentGameWinner === "X") {
-    $('.announce-winner-div').html("Player One Wins!");
-  } else if (currentGameWinner === "O") {
-    $('.announce-winner-div').html("Player Two Wins!");
-  }
+  let winnerMessage = currentGameWinner === "X" ? "Player One Wins!" : "Player Two Wins!";
+  $('.announce-winner-div').html(winnerMessage);
 }
 
 const updatePlayerTurnOnScreen = () => {
@@ -79,9 +63,9 @@ const resetBoard = () => {
 
 const updateWinsTable = (currentGameWinner) => {
   if (currentGameWinner === "X") {
-    $('#player-one-wins-counter').html(gameState.playerOneWinsThisSession)
+    $('#player-one-wins-counter').html(sessionState.playerOneWinsThisSession)
   } else if (currentGameWinner === "O") {
-    $('#player-two-wins-counter').html(gameState.playerTwoWinsThisSession)
+    $('#player-two-wins-counter').html(sessionState.playerTwoWinsThisSession)
   }
 }
 
@@ -90,7 +74,7 @@ const checkWhoWins = (winTestArray) => {
   let currentGameWinner ="";
 
   if (winTestArray[0] === 'X' && winTestArray[1] === 'X' && winTestArray[2] === 'X') {
-    gameState.playerOneWinsThisSession++;
+    sessionState.playerOneWinsThisSession++;
     gameState.gameWinner = "Player One";
     gameState.gameOver = true;
     gameState.activeGame = false;
@@ -101,7 +85,7 @@ const checkWhoWins = (winTestArray) => {
     announceWinner(currentGameWinner)
 
   } else if (winTestArray[0] === 'O' && winTestArray[1] === 'O' && winTestArray[2] === 'O') {
-    gameState.playerTwoWinsThisSession++;
+    sessionState.playerTwoWinsThisSession++;
     gameState.gameWinner = "Player Two";
     gameState.gameOver = true;
     gameState.activeGame = false;
