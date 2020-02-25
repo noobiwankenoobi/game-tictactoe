@@ -1,7 +1,16 @@
+// GAME OBJECT // GAME OBJECT
 
-// GAME OBJECT // GAME OBJECT
-// GAME OBJECT // GAME OBJECT
-// GAME OBJECT // GAME OBJECT
+const startingGameState = {
+  currentTurn: 'playerOne',
+  playerOneSymbol: 'X',
+  playerTwoSymbol: 'O',
+  currentBoardArray: [,,,,,,,,,],
+  activeGame: true,
+  gameOver: false,
+  gameWinner: "",
+  playerOneWinsThisSession: 0,
+  playerTwoWinsThisSession: 0,
+}
 
 const gameState = {
   currentTurn: 'playerOne',
@@ -27,7 +36,6 @@ const winConditions = [
 ];
 
 // NEW GAME FUNCTION
-// NEW GAME FUNCTION
 
 const newGame = () => {
   // this will clean up a bunch of the lower functions that are resetting things themselves
@@ -37,7 +45,7 @@ const newGame = () => {
   gameState.gameOver = false;
   gameState.activeGame = true;
   gameState.currentTurn = "playerOne"
-  updatePlayerTurnOnScreen()
+  updatePlayerTurnOnScreen();
   $('.announce-winner-div').html("");
 
   for (let i = 0; i < gameState.currentBoardArray.length; i++) {
@@ -54,7 +62,6 @@ const announceWinner = (currentGameWinner) => {
   // Create a modal in future that announces the winner with a "Player again" button that runs a newGame function
   console.log("ANOUNCE WINNER IS RUNNING")
   console.log("currentGameWinner", currentGameWinner)
-  console.log("Margaux is a smokeshow")
   if (currentGameWinner === "X") {
     console.log("X conditions running")
     $('.announce-winner-div').html("Player One Wins!");
@@ -151,7 +158,7 @@ const checkWhoWins = (winTestArray) => {
 // FIRST CHECK FOR A VICTORY
 
   const checkForVictory = () => {
-  
+
     for (let i = 0; i < winConditions.length; i++) {
       
       let winTestArray = [,,,];
