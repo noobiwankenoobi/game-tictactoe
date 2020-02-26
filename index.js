@@ -47,7 +47,7 @@ const newGame = () => {
   console.log("gameState =", gameState)
   console.log("startingGameState =", startingGameState)
   console.log("sessionState =", sessionState)
-  console.log("currentBoardArray =", startingGameState.startingBoardArray)
+  console.log("startingBoardArray =", startingGameState.startingBoardArray)
 };
 
 const announceWinner = (currentGameWinner) => {
