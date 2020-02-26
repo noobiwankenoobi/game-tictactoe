@@ -7,13 +7,21 @@ const startingGameState = {
   currentTurn:                'playerOne',
   playerOneSymbol:            'X',
   playerTwoSymbol:            'O',
-  currentBoardArray:          [,,,,,,,,,],
+  startingBoardArray:         [,,,,,,,,,],
   activeGame:                 true,
   gameOver:                   false,
   gameWinner:                 "",
 };
 
-const gameState = startingGameState;
+let gameState = {
+  currentTurn:                startingGameState.currentTurn,
+  playerOneSymbol:            startingGameState.playerOneSymbol,
+  playerTwoSymbol:            startingGameState.playerTwoSymbol,
+  currentBoardArray:          startingGameState.startingBoardArray,
+  activeGame:                 startingGameState.activeGame,
+  gameOver:                   startingGameState.gameOver,
+  gameWinner:                 startingGameState.gameWinner,
+}
 
 const winConditions = [
   [0,1,2],
@@ -29,8 +37,17 @@ const winConditions = [
 const newGame = () => {
   $('.cell').html("");
   $('.announce-winner-div').html("");
+  gameState.activeGame =        startingGameState.activeGame;
+  gameState.currentBoardArray = [,,,,,,,,,];
+  gameState.gameOver =          startingGameState.gameOver;
+  gameState.currentTurn =       startingGameState.currentTurn;
+  gameState.gameWinner =        startingGameState.gameWinner;
   updatePlayerTurnOnScreen();
-  gameState = startingGameState;
+
+  console.log("gameState =", gameState)
+  console.log("startingGameState =", startingGameState)
+  console.log("sessionState =", sessionState)
+  console.log("currentBoardArray =", startingGameState.startingBoardArray)
 };
 
 const announceWinner = (currentGameWinner) => {
@@ -44,20 +61,7 @@ const updatePlayerTurnOnScreen = () => {
   } else if (gameState.currentTurn == "playerTwo" && gameState.activeGame === true) {
     $('.current-player-div').html("Player Two's Turn!");
   } else if (gameState.activeGame === false) {
-    $('.current-player-div').html("")
-  }
-}
-
-const resetBoard = () => {
-  $('.cell').html("");
-  gameState.gameOver = false;
-  gameState.activeGame = true;
-  gameState.currentTurn = "playerOne"
-  updatePlayerTurnOnScreen()
-  $('.announce-winner-div').html("");
-
-  for (let i = 0; i < gameState.currentBoardArray.length; i++) {
-    gameState.currentBoardArray[i] = "";
+    $('.current-player-div').html("");
   }
 }
 
@@ -94,6 +98,7 @@ const checkWhoWins = (winTestArray) => {
 
     updateWinsTable(currentGameWinner)
     announceWinner(currentGameWinner)
+
   } else {
     console.error("error in checkWhoWins")
   }
@@ -180,11 +185,11 @@ const playerMove = () => {
 }
 
 const addHandlers = () => {
-  $('.cell').on('click', playerMove)
-  $('#board-reset-button').on('click', resetBoard)
+  $('.cell').on('click', playerMove);
+  $('#board-reset-button').on('click', newGame);
 };
 
 $(() => {
-  addHandlers()
-  updatePlayerTurnOnScreen()
-})
+  addHandlers();
+  updatePlayerTurnOnScreen();
+});
