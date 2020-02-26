@@ -7,21 +7,12 @@ const startingGameState = {
   currentTurn:                'playerOne',
   playerOneSymbol:            'X',
   playerTwoSymbol:            'O',
-  startingBoardArray:         [,,,,,,,,,],
   activeGame:                 true,
   gameOver:                   false,
   gameWinner:                 "",
 };
 
-let gameState = {
-  currentTurn:                startingGameState.currentTurn,
-  playerOneSymbol:            startingGameState.playerOneSymbol,
-  playerTwoSymbol:            startingGameState.playerTwoSymbol,
-  currentBoardArray:          startingGameState.startingBoardArray,
-  activeGame:                 startingGameState.activeGame,
-  gameOver:                   startingGameState.gameOver,
-  gameWinner:                 startingGameState.gameWinner,
-}
+const gameState = {};
 
 const winConditions = [
   [0,1,2],
@@ -34,26 +25,22 @@ const winConditions = [
   [2,4,6]
 ];
 
+const resetGameState = () => {
+  gameState.currentTurn =                startingGameState.currentTurn;
+  gameState.playerOneSymbol =            startingGameState.playerOneSymbol;
+  gameState.playerTwoSymbol =            startingGameState.playerTwoSymbol;
+  gameState.currentBoardArray =          [,,,,,,,,,];
+  gameState.activeGame =                 startingGameState.activeGame;
+  gameState.gameOver =                   startingGameState.gameOver;
+  gameState.gameWinner =                 startingGameState.gameWinner;
+};
+
 const newGame = () => {
   $('.cell').html("");
   $('.announce-winner-div').html("");
-  gameState.activeGame =        startingGameState.activeGame;
-  gameState.currentBoardArray = [,,,,,,,,,];
-  gameState.gameOver =          startingGameState.gameOver;
-  gameState.currentTurn =       startingGameState.currentTurn;
-  gameState.gameWinner =        startingGameState.gameWinner;
+  resetGameState();
   updatePlayerTurnOnScreen();
-
-  console.log("gameState =", gameState)
-  console.log("startingGameState =", startingGameState)
-  console.log("sessionState =", sessionState)
-  console.log("startingBoardArray =", startingGameState.startingBoardArray)
 };
-
-const announceWinner = (currentGameWinner) => {
-  let winnerMessage = currentGameWinner === "X" ? "Player One Wins!" : "Player Two Wins!";
-  $('.announce-winner-div').html(winnerMessage);
-}
 
 const updatePlayerTurnOnScreen = () => {
   if (gameState.currentTurn === "playerOne" && gameState.activeGame === true) {
@@ -63,71 +50,41 @@ const updatePlayerTurnOnScreen = () => {
   } else if (gameState.activeGame === false) {
     $('.current-player-div').html("");
   }
+};
+
+const announceWinner = () => {
+  let winnerMessage = gameState.gameWinner === "Player One" ? "Player One Wins!" : "Player Two Wins!";
+  $('.announce-winner-div').html(winnerMessage);
+};
+
+const updateSessionWins = () => {
+  gameState.gameWinner === "Player One" ? sessionState.playerOneWinsThisSession++ : sessionState.playerTwoWinsThisSession++;
 }
 
-const updateWinsTable = (currentGameWinner) => {
-  if (currentGameWinner === "X") {
-    $('#player-one-wins-counter').html(sessionState.playerOneWinsThisSession)
-  } else if (currentGameWinner === "O") {
-    $('#player-two-wins-counter').html(sessionState.playerTwoWinsThisSession)
-  }
+const updateWinsTable = () => {
+  gameState.gameWinner === "Player One" ? $('#player-one-wins-counter').html(sessionState.playerOneWinsThisSession) : 
+  $('#player-two-wins-counter').html(sessionState.playerTwoWinsThisSession);
+};
+
+const endTheGame = () => {
+  console.log("endTheGame is running")
+  gameState.gameOver = true;
+  gameState.activeGame = false;
+  announceWinner();
+  updateSessionWins();
+  updateWinsTable();
 }
 
-const checkWhoWins = (winTestArray) => {
-
-  let currentGameWinner ="";
-
-  if (winTestArray[0] === 'X' && winTestArray[1] === 'X' && winTestArray[2] === 'X') {
-    sessionState.playerOneWinsThisSession++;
-    gameState.gameWinner = "Player One";
-    gameState.gameOver = true;
-    gameState.activeGame = false;
-    
-    currentGameWinner = "X";
-
-    updateWinsTable(currentGameWinner)
-    announceWinner(currentGameWinner)
-
-  } else if (winTestArray[0] === 'O' && winTestArray[1] === 'O' && winTestArray[2] === 'O') {
-    sessionState.playerTwoWinsThisSession++;
-    gameState.gameWinner = "Player Two";
-    gameState.gameOver = true;
-    gameState.activeGame = false;
-    
-    currentGameWinner = "O";
-
-    updateWinsTable(currentGameWinner)
-    announceWinner(currentGameWinner)
-
-  } else {
-    console.error("error in checkWhoWins")
-  }
-}
-
-  const checkForVictory = () => {
-
-    for (let i = 0; i < winConditions.length; i++) {
-      
-      let winTestArray = [,,,];
-
-      if (gameState.activeGame === true) {
-
-        for (let j = 0; j < 3; j++) {
-          
-          if (winTestArray[0] !== "" && winTestArray[1] !== "" && winTestArray[2] !== "") {
-      
-            let indexes = winConditions[i][j];
-            let boardValues = gameState.currentBoardArray[indexes]
-            
-            winTestArray[j] = boardValues;
-            
-            checkWhoWins(winTestArray)
-            
-          }
-        }
-      }
+const checkForVictory = () => {
+  for (let i = 0; i < winConditions.length; i++) {
+    if ((winConditions[i][0] === winConditions[i][1] === winConditions[i][2]) && (winConditions[i][0] !== "")) {
+      gameState.gameWinner = winConditions[i][0] === "X" ? "Player One" : "Player Two";
+      endTheGame();
     }
-  } 
+    console.log("winConditions[i] =", winConditions[i])
+    console.log("winConditions[i][0] =", winConditions[i][0])
+  }
+}
 
 const addToCell = (cellID, letter) => {
     $('#' + cellID).html(letter); 
@@ -156,7 +113,7 @@ const addToCell = (cellID, letter) => {
 
     gameState.currentBoardArray[arrayIndex] = letter;
 
-    checkForVictory()
+    checkForVictory();
    
 } 
 
@@ -165,20 +122,20 @@ const playerMove = () => {
 
     if (gameState.currentTurn === 'playerOne') {
 
-      addToCell(event.target.id, gameState.playerOneSymbol)
+      addToCell(event.target.id, gameState.playerOneSymbol);
       gameState.currentTurn = 'playerTwo';
 
-      updatePlayerTurnOnScreen()
+      updatePlayerTurnOnScreen();
 
     } else if (gameState.currentTurn === 'playerTwo') {
 
-      addToCell(event.target.id, gameState.playerTwoSymbol)
+      addToCell(event.target.id, gameState.playerTwoSymbol);
       gameState.currentTurn = 'playerOne';
 
-      updatePlayerTurnOnScreen()
+      updatePlayerTurnOnScreen();
 
     } else {
-      console.error('player state unknown')
+      console.error('player state unknown');
     }
     
   }
@@ -191,5 +148,6 @@ const addHandlers = () => {
 
 $(() => {
   addHandlers();
+  resetGameState();
   updatePlayerTurnOnScreen();
 });
