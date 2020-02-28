@@ -29,7 +29,7 @@ const resetGameState = () => {
   gameState.currentTurn =                startingGameState.currentTurn;
   gameState.playerOneSymbol =            startingGameState.playerOneSymbol;
   gameState.playerTwoSymbol =            startingGameState.playerTwoSymbol;
-  gameState.currentBoardArray =          [,,,,,,,,,];
+  gameState.currentBoardArray =          ["","","","","","","","","",""];
   gameState.activeGame =                 startingGameState.activeGame;
   gameState.gameOver =                   startingGameState.gameOver;
   gameState.gameWinner =                 startingGameState.gameWinner;
@@ -53,21 +53,20 @@ const updatePlayerTurnOnScreen = () => {
 };
 
 const announceWinner = () => {
-  let winnerMessage = gameState.gameWinner === "Player One" ? "Player One Wins!" : "Player Two Wins!";
+  let winnerMessage = gameState.gameWinner === "X" ? "Player One Wins!" : "Player Two Wins!";
   $('.announce-winner-div').html(winnerMessage);
 };
 
 const updateSessionWins = () => {
-  gameState.gameWinner === "Player One" ? sessionState.playerOneWinsThisSession++ : sessionState.playerTwoWinsThisSession++;
+  gameState.gameWinner === "X" ? sessionState.playerOneWinsThisSession++ : sessionState.playerTwoWinsThisSession++;
 }
 
 const updateWinsTable = () => {
-  gameState.gameWinner === "Player One" ? $('#player-one-wins-counter').html(sessionState.playerOneWinsThisSession) : 
+  gameState.gameWinner === "X" ? $('#player-one-wins-counter').html(sessionState.playerOneWinsThisSession) : 
   $('#player-two-wins-counter').html(sessionState.playerTwoWinsThisSession);
 };
 
 const endTheGame = () => {
-  console.log("endTheGame is running")
   gameState.gameOver = true;
   gameState.activeGame = false;
   announceWinner();
@@ -75,16 +74,73 @@ const endTheGame = () => {
   updateWinsTable();
 }
 
-const checkForVictory = () => {
-  for (let i = 0; i < winConditions.length; i++) {
-    if ((winConditions[i][0] === winConditions[i][1] === winConditions[i][2]) && (winConditions[i][0] !== "")) {
-      gameState.gameWinner = winConditions[i][0] === "X" ? "Player One" : "Player Two";
-      endTheGame();
+const checkCondition = (condition) => {
+    let val1 = gameState.currentBoardArray[condition[0]];
+    let val2 = gameState.currentBoardArray[condition[1]];
+    let val3 = gameState.currentBoardArray[condition[2]];
+
+    if (val1 == "") {
+      return "";
     }
-    console.log("winConditions[i] =", winConditions[i])
-    console.log("winConditions[i][0] =", winConditions[i][0])
+    if (val1 !== val2) {
+      return "";
+    }
+    if (val1 !== val3) {
+      return ""
+    }
+    return val1
+};
+
+// const willsWay = (condition) => {
+//   let oldValue = "";
+//   let newValue = "";
+
+//   for (const index of condition) {
+//     let newValue = gameState.currentBoardArray[index];
+//     if (newValue == "" ) {
+//       return ""
+//     } 
+//     if (oldValue !== "" && newValue != oldValue) {
+//       return ""
+//     } 
+//     oldValue = newValue
+//     console.log("oldValue = ", oldValue)
+//   }
+//   console.log("newValue = ", newValue)
+//   return newValue
+// }
+
+const checkForVictoryToo = () => {
+  for (const condition of winConditions) {
+    let won = checkCondition(condition);
+    if ("" !== won) {
+      return won
+    }
+  }
+  return ""
+};
+
+const checkForVictory = () => {
+  
+  let whoWon = checkForVictoryToo();
+  if (whoWon !== "") {
+    gameState.gameWinner = whoWon;
+    endTheGame();
   }
 }
+
+// const checkForVictory = () => {
+//   for (let i = 0; i < winConditions.length; i++) {
+//     // console.log("gameState.currentBoardArray[winConditions[i][0] =", gameState.currentBoardArray[winConditions[i][0]]);
+//     // console.log("gameState.currentBoardArray[winConditions[i][1] =", gameState.currentBoardArray[winConditions[i][1]]);
+//     // console.log("gameState.currentBoardArray[winConditions[i][2] =", gameState.currentBoardArray[winConditions[i][2]]);
+//     if (((gameState.currentBoardArray[winConditions[i][0]]) === (gameState.currentBoardArray[winConditions[i][1]]) === (gameState.currentBoardArray[winConditions[i][2]])) && (gameState.currentBoardArray[winConditions[i][0]] !== "")) {
+//       console.log("i =", i)
+//       gameState.gameWinner = (winConditions[i][0] === "X") ? "Player One" : "Player Two";
+//       endTheGame();
+//     }
+//   }
+// }
 
 const addToCell = (cellID, letter) => {
     $('#' + cellID).html(letter); 
@@ -114,7 +170,6 @@ const addToCell = (cellID, letter) => {
     gameState.currentBoardArray[arrayIndex] = letter;
 
     checkForVictory();
-   
 } 
 
 const playerMove = () => {
