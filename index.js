@@ -86,38 +86,19 @@ const checkCondition = (condition) => {
       return "";
     }
     if (val1 !== val3) {
-      return ""
+      return "";
     }
-    return val1
+    return val1;
 };
-
-// const willsWay = (condition) => {
-//   let oldValue = "";
-//   let newValue = "";
-
-//   for (const index of condition) {
-//     let newValue = gameState.currentBoardArray[index];
-//     if (newValue == "" ) {
-//       return ""
-//     } 
-//     if (oldValue !== "" && newValue != oldValue) {
-//       return ""
-//     } 
-//     oldValue = newValue
-//     console.log("oldValue = ", oldValue)
-//   }
-//   console.log("newValue = ", newValue)
-//   return newValue
-// }
 
 const checkForVictoryToo = () => {
   for (const condition of winConditions) {
-    let won = checkCondition(condition);
-    if ("" !== won) {
-      return won
+    let winnerSymbol = checkCondition(condition);
+    if ("" !== winnerSymbol) {
+      return winnerSymbol;
     }
   }
-  return ""
+  return "";
 };
 
 const checkForVictory = () => {
@@ -129,7 +110,7 @@ const checkForVictory = () => {
   }
 }
 
-// const checkForVictory = () => {
+// const oldCheckForVictory = () => {
 //   for (let i = 0; i < winConditions.length; i++) {
 //     // console.log("gameState.currentBoardArray[winConditions[i][0] =", gameState.currentBoardArray[winConditions[i][0]]);
 //     // console.log("gameState.currentBoardArray[winConditions[i][1] =", gameState.currentBoardArray[winConditions[i][1]]);
@@ -192,7 +173,6 @@ const playerMove = () => {
     } else {
       console.error('player state unknown');
     }
-    
   }
 }
 
