@@ -1,63 +1,80 @@
 <!DOCTYPE html>
 <html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="shortcut icon" href="">
-        <!-- Jquery link -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="" />
+    <!-- Jquery link -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        <!-- Bootstrap Link -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        
+    <!-- Bootstrap Link -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
-        <script src="index.js"></script>
+    <script src="index.js"></script>
+  </head>
 
-    </head>
+  <body>
+    <div class="title">
+      TIC TAC TOE
+    </div>
 
-    <body>
-        <div class="title">
-            TIC TAC TOE
-        </div>
+    <div class="session-wins-div">
+      <table class="session-wins-table">
+        <tr>
+          <th>Player One (X)</th>
+          <th>Player Two (O)</th>
+        </tr>
+        <tr>
+          <td id="player-one-wins-counter"></td>
+          <td id="player-two-wins-counter"></td>
+        </tr>
+      </table>
+    </div>
 
-        <div class="session-wins-div">
-            <table class="session-wins-table">
-                <tr>
-                    <th>Player One (X)</th>
-                    <th>Player Two (O)</th>
-                </tr>
-                <tr>
-                    <td id="player-one-wins-counter"></td>
-                    <td id="player-two-wins-counter"></td>
-                </tr>
-            </table>
-        </div>
+    <div class="buttons-div">
+      <button id="board-reset-button" type="button" class="btn btn-secondary">
+        Reset Board
+      </button>
+    </div>
 
-        <div class="buttons-div">
-                <button id="board-reset-button" type="button" class="btn btn-secondary">Reset Board</button>
-        </div>
+    <div class="current-player-div"></div>
 
-        <div class="current-player-div"></div>
+    <div class="game-board-div">
+      <div class="game-board">
+        <div id="cell-one" class="cell"></div>
+        <div id="cell-two" class="cell"></div>
+        <div id="cell-three" class="cell"></div>
+        <div id="cell-four" class="cell"></div>
+        <div id="cell-five" class="cell"></div>
+        <div id="cell-six" class="cell"></div>
+        <div id="cell-seven" class="cell"></div>
+        <div id="cell-eight" class="cell"></div>
+        <div id="cell-nine" class="cell"></div>
+      </div>
+    </div>
 
+    <div class="announce-div">
+      <div class="announce-container">
         <div class="announce-winner-div"></div>
-
-        <div class="game-board-div">
-            <div class="game-board">
-                <div id="cell-one" class="cell"></div>
-                <div id="cell-two" class="cell"></div>
-                <div id="cell-three" class="cell"></div>
-                <div id="cell-four" class="cell"></div>
-                <div id="cell-five" class="cell"></div>
-                <div id="cell-six" class="cell"></div>
-                <div id="cell-seven" class="cell"></div>
-                <div id="cell-eight" class="cell"></div>
-                <div id="cell-nine" class="cell"></div>
-            </div>
+        <div class="start-new-game-div">
+          <button
+            id="board-reset-button-2"
+            type="button"
+            class="btn btn-primary"
+          >
+            Start New Game
+          </button>
         </div>
-    
-    </body>
+      </div>
+    </div>
+  </body>
 </html>
