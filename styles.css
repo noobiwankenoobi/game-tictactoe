@@ -1,14 +1,46 @@
 :root {
   font-size: 16px;
+  font-family: "Itim", cursive;
+}
+
+.main-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100vw;
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+.game-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.right-side-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
 }
 
 .game-board {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin: auto;
-  height: 350px;
-  width: 350px;
+  height: 25rem;
+  width: 25rem;
   /* padding: 60px 0px 40px 0px; */
 }
 
@@ -18,20 +50,13 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  width: 100px;
-  height: 100px;
-  border: 2px solid black;
+  width: 7rem;
+  height: 7rem;
+  border: 1px solid black;
   margin: 0.2rem;
-  font-size: 30px;
+  font-size: 5rem;
   text-align: center;
   border-radius: 1rem;
-}
-
-.title {
-  margin: auto;
-  text-align: center;
-  font-size: 30px;
-  padding-top: 30px;
 }
 
 .buttons-div {
@@ -41,12 +66,17 @@
   margin: 30px;
 }
 
-#board-reset-button {
-  font-size: 20px;
+.button {
+  padding: 1rem;
+  border: 2px solid rgb(240, 108, 47);
+  border-radius: 0.5rem;
+  background-color: white;
+  font-family: "Itim", cursive;
+  font-size: 2rem;
 }
 
-#board-reset-button-2 {
-  font-size: 20px;
+.button:hover {
+  background-color: rgb(240, 108, 47);
 }
 
 .session-wins-div {
@@ -66,11 +96,14 @@
 .session-wins-table td {
   border: 1px solid black;
   padding: 15px;
+  border-radius: 0.5rem;
+  height: 2rem;
 }
 
 .session-wins-table th {
   border: 1px solid black;
   padding: 15px;
+  border-radius: 0.5rem;
 }
 
 .current-player-div {
@@ -100,7 +133,6 @@
 
 .announce-container {
   background-color: white;
-
   border-radius: 1rem;
   padding: 3rem;
 }

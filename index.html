@@ -10,71 +10,73 @@
     <link rel="shortcut icon" href="" />
     <!-- Jquery link -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Bootstrap Link -->
+    <!-- Font -->
     <link
+      href="https://fonts.googleapis.com/css2?family=Itim&display=swap"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
     />
 
     <script src="index.js"></script>
   </head>
 
   <body>
-    <div class="title">
-      TIC TAC TOE
-    </div>
+    <div class="main-div">
+      <!-- SCORE SECTION BEGIN -->
+      <div class="score-section">
+        <div class="session-wins-div">
+          <table class="session-wins-table">
+            <tr>
+              <th>player one (X)</th>
+              <th>player two (O)</th>
+            </tr>
+            <tr>
+              <td id="player-one-wins-counter"></td>
+              <td id="player-two-wins-counter"></td>
+            </tr>
+          </table>
+        </div>
 
-    <div class="session-wins-div">
-      <table class="session-wins-table">
-        <tr>
-          <th>Player One (X)</th>
-          <th>Player Two (O)</th>
-        </tr>
-        <tr>
-          <td id="player-one-wins-counter"></td>
-          <td id="player-two-wins-counter"></td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="buttons-div">
-      <button id="board-reset-button" type="button" class="btn btn-secondary">
-        Reset Board
-      </button>
-    </div>
-
-    <div class="current-player-div"></div>
-
-    <div class="game-board-div">
-      <div class="game-board">
-        <div id="cell-one" class="cell"></div>
-        <div id="cell-two" class="cell"></div>
-        <div id="cell-three" class="cell"></div>
-        <div id="cell-four" class="cell"></div>
-        <div id="cell-five" class="cell"></div>
-        <div id="cell-six" class="cell"></div>
-        <div id="cell-seven" class="cell"></div>
-        <div id="cell-eight" class="cell"></div>
-        <div id="cell-nine" class="cell"></div>
+        <div class="buttons-div">
+          <button id="board-reset-button" type="button" class="button">
+            reset board
+          </button>
+        </div>
       </div>
+      <!-- SCORE SECTION END -->
+      <!-- GAME SECTION BEGIN -->
+      <div class="game-section">
+        <div class="game-board">
+          <div id="cell-one" class="cell"></div>
+          <div id="cell-two" class="cell"></div>
+          <div id="cell-three" class="cell"></div>
+          <div id="cell-four" class="cell"></div>
+          <div id="cell-five" class="cell"></div>
+          <div id="cell-six" class="cell"></div>
+          <div id="cell-seven" class="cell"></div>
+          <div id="cell-eight" class="cell"></div>
+          <div id="cell-nine" class="cell"></div>
+        </div>
+      </div>
+      <!-- GAME SECTION END -->
+      <!-- RIGHT SIDE BEGIN -->
+      <div class="right-side-section">
+        <div class="current-player-div"></div>
+      </div>
+
+      <!-- RIGHT SIDE END -->
     </div>
 
+    <!-- ANNOUNCE SECTION OVERLAY BEGIN -->
     <div class="announce-div">
       <div class="announce-container">
         <div class="announce-winner-div"></div>
         <div class="start-new-game-div">
-          <button
-            id="board-reset-button-2"
-            type="button"
-            class="btn btn-primary"
-          >
+          <button id="board-reset-button-2" type="button" class="button">
             Start New Game
           </button>
         </div>
       </div>
     </div>
+    <!-- ANNOUNCE SECTION OVERLAY END -->
   </body>
 </html>
